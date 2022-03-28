@@ -20,23 +20,24 @@ header.masthead {
     background-size: cover;
 
     h1 {
-        font-size: 2.25rem;
+        font-size: 2.0rem;
     }
 
     table {
-        font-size: 1.5rem;
+        font-size: 1.0rem;
         color: $white;
     }
 
     table tr.header {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         color: $white;
     }
 
     table tr.current {
-        font-size: 2.0rem;
+        font-size: 1.5rem;
         color: $orange;
     }
+
 
     @include media-breakpoint-up(lg) {
         height: 100vh;
@@ -51,11 +52,35 @@ header.masthead {
         h1 {
             font-size: 3rem;
         }
+
+        table {
+            font-size: 1.5rem;
+        }
+    
+        table tr.header {
+            font-size: 1.75rem;
+        }
+    
+        table tr.current {
+            font-size: 2.0rem;
+        }
     }
 
     @include media-breakpoint-up(xl) {
         h1 {
             font-size: 3.5rem;
+        }
+
+        table {
+            font-size: 2.0rem;
+        }
+    
+        table tr.header {
+            font-size: 2.25rem;
+        }
+    
+        table tr.current {
+            font-size: 2.75rem;
         }
     }
 }
