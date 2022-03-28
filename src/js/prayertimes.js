@@ -50,7 +50,6 @@ function loadPrayerTimes(today, tomorrow) {
             
             // momentize the time values in both prayer times
             prayerTimes.forEach(item => {
-                console.log(item);
                 for(var i=1; i < item.length; i++) {
                     item[i] =  moment(item[NEW_COL_DATE] + " " + item[i], "YYYY-MM-DD hh:mm A");
                 }
@@ -59,7 +58,6 @@ function loadPrayerTimes(today, tomorrow) {
             // console.log("after momentizing: ", prayerTimes); 
 
             var prayers = setCurrentPrayer()
-            console.log(prayers);
             current = prayers[0];
             next = prayers[1];
 
@@ -72,7 +70,7 @@ function loadPrayerTimes(today, tomorrow) {
 
 function setCurrentPrayer() {
     // 
-    var now = Date();
+    var now = moment(new Date());
     var currentPrayer;
     var nextPrayer;
 
@@ -112,24 +110,28 @@ function updateTable(prayerTimes) {
     
     for(var i=NEW_COL_DATE + 1; i<prayerTimes[0].length;) {
         var row = prayerTimes[0];
-        if(i != NEW_COL_SUNRISE) {
-            
+        
             if(prayerTimeHeader[i] == current[0]) {
                 rows += "<tr class='current'>"
             } else {
                 rows += '<tr>';
             }
 
-            rows += "<th>" + prayerTimeHeader[i] +  "</th>";
-            rows += "<th>" + row[i].format('LT') + "</th>";
-            rows += "<th>" + row[i+1].format('LT') + "</th>";
+            if (i === NEW_COL_SUNRISE) {
+                rows += "<th>" + prayerTimeHeader[i] +  "</th>";
+                rows += "<th>" + row[i].format('LT') + "</th>";
+                i = i + 1;
+                continue;
+            } else 
+            {
+                rows += "<th>" + prayerTimeHeader[i] +  "</th>";
+                rows += "<th>" + row[i].format('LT') + "</th>";
+                rows += "<th>" + row[i+1].format('LT') + "</th>";
+            }
 
             rows += '</tr>';
 
             i = i + 2;
-        } else {
-            i++;
-        }
     }
   
     $('#prayertimes tr:last').after(rows);
