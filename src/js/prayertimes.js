@@ -143,7 +143,7 @@ $(function() {
     loadPrayerTimes(today, tomorrow);
 
     setInterval(function(){
-        $('#now').html(moment().format('LTS') + " (" + current[0] + " )");
+        $('#now').html(moment().format('LT') + " (" + current[0] + " )");
     }, 1000); 
 
     setInterval(function(){
