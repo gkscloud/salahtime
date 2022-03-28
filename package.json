@@ -1,6 +1,6 @@
 {
-    "title": "Creative",
-    "name": "startbootstrap-creative",
+    "title": "ImamBukhariCentre",
+    "name": "salah-time-landing-page",
     "version": "7.0.6",
     "scripts": {
         "build": "npm run clean && npm run build:pug && npm run build:scss && npm run build:scripts && npm run build:assets",
