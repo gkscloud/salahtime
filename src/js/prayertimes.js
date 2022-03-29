@@ -84,6 +84,7 @@ function setCurrentPrayer() {
                     break;
                 }
             } else {
+                // if it is past 12:00 am, why didn't it show the correct fajr time
                 currentPrayer = [prayerTimeHeader[i], prayerTimes[0][i]];
                 nextPrayer = [prayerTimeHeader[NEW_COL_FAJR_ADHAAN], prayerTimes[1][NEW_COL_FAJR_ADHAAN]];
                 break;
@@ -107,7 +108,14 @@ function getTomorrowsDateAsISOString() {
 
 function updateTable(prayerTimes) {
     var rows = ''
-    
+    var header = '';
+
+    header += '<tr>';
+    header += '<th></th>';
+    header += '<th>Adhaan</th>';
+    header += '<th>Iqamah</th>';
+    header += '</tr>';
+
     for(var i=NEW_COL_DATE + 1; i<prayerTimes[0].length;) {
         var row = prayerTimes[0];
         
@@ -133,22 +141,30 @@ function updateTable(prayerTimes) {
 
             i = i + 2;
     }
-  
+
+    $('#prayertimes tr').remove();
+    $('#prayertimes').append(header);
     $('#prayertimes tr:last').after(rows);
+
+    // $('#prayertimes tr').after(rows);
 }
 
-
-$(function() {
+function main() {
     var today = getTodaysDateAsISOString();
     var tomorrow = getTomorrowsDateAsISOString();
 
     loadPrayerTimes(today, tomorrow);
+}
 
+$(function() {
+    
     setInterval(function(){
         $('#now').html(moment().format('LT') + " (" + current[0] + " )");
     }, 1000); 
 
     setInterval(function(){
+        main()
         $('#nextPrayer').html(next[0] + " @ " + next[1].format('LT'));
     }, 1000); 
+
 })

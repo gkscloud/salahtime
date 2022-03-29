@@ -14,9 +14,9 @@ http-server ~/salattime/dist/ &
 
 /usr/bin/chromium-browser --noerrdialogs --disable-infobars --kiosk http://localhost:8080
 
-while true; do
-     xdotool keydown F5; xdotool keyup F5;
-     sleep 5
-done
+# while true; do
+#      xdotool keydown F5; xdotool keyup F5;
+#      sleep 10
+# done
 
 
