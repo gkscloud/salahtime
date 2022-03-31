@@ -80,8 +80,9 @@ function setCurrentPrayer() {
                 if (now <= prayerTimes[0][i]) {
                      // if it is past 12:00 am but not yet fajr
                     idx = i;
-                    currentPrayer = [prayerTimeHeader[i], prayerTimes[0][i]]
-                    nextPrayer = [prayerTimeHeader[i+1], prayerTimes[0][i+1]]
+                    var currentPrayerIdx = prayerTimes[0].length - 1;
+                    currentPrayer = [prayerTimeHeader[currentPrayerIdx], prayerTimes[0][currentPrayerIdx]]
+                    nextPrayer = [prayerTimeHeader[i], prayerTimes[0][i]];
                     break;
 
                 }
