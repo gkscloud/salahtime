@@ -77,14 +77,21 @@ function setCurrentPrayer() {
     if (prayerTimes !== undefined) {
         for(var i=NEW_COL_DATE + 1; i < prayerTimes[0].length; i++) {
             if(i + 1 < prayerTimes[0].length) {  
-                if (now > prayerTimes[0][i] && now < prayerTimes[0][i+1] ) {
+                if (now <= prayerTimes[0][i]) {
+                     // if it is past 12:00 am but not yet fajr
+                    idx = i;
+                    currentPrayer = [prayerTimeHeader[i], prayerTimes[0][i]]
+                    nextPrayer = [prayerTimeHeader[i+1], prayerTimes[0][i+1]]
+                    break;
+
+                }
+                else if (now > prayerTimes[0][i] && now < prayerTimes[0][i+1] ) {
                     idx = i;
                     currentPrayer = [prayerTimeHeader[i], prayerTimes[0][i]]
                     nextPrayer = [prayerTimeHeader[i+1], prayerTimes[0][i+1]]
                     break;
                 }
             } else {
-                // if it is past 12:00 am, why didn't it show the correct fajr time
                 currentPrayer = [prayerTimeHeader[i], prayerTimes[0][i]];
                 nextPrayer = [prayerTimeHeader[NEW_COL_FAJR_ADHAAN], prayerTimes[1][NEW_COL_FAJR_ADHAAN]];
                 break;
