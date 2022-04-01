@@ -128,7 +128,7 @@ function updateTable(prayerTimes) {
         var row = prayerTimes[0];
         var prayerName = prayerTimeHeader[i].split(" ")[0];
 
-        if(prayerTimeHeader[i] == current[0]) {
+        if(prayerTimeHeader[i] == current[0].split(" ")[0]) {
             rows += "<tr class='current'>"
         } else {
             rows += '<tr>';
