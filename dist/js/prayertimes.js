@@ -126,28 +126,29 @@ function updateTable(prayerTimes) {
 
     for(var i=NEW_COL_DATE + 1; i<prayerTimes[0].length;) {
         var row = prayerTimes[0];
-        
-            if(prayerTimeHeader[i] == current[0]) {
-                rows += "<tr class='current'>"
-            } else {
-                rows += '<tr>';
-            }
+        var prayerName = prayerTimeHeader[i].split(" ")[0];
 
-            if (i === NEW_COL_SUNRISE) {
-                rows += "<th>" + prayerTimeHeader[i] +  "</th>";
-                rows += "<th>" + row[i].format('LT') + "</th>";
-                i = i + 1;
-                continue;
-            } else 
-            {
-                rows += "<th>" + prayerTimeHeader[i] +  "</th>";
-                rows += "<th>" + row[i].format('LT') + "</th>";
-                rows += "<th>" + row[i+1].format('LT') + "</th>";
-            }
+        if(prayerTimeHeader[i] == current[0]) {
+            rows += "<tr class='current'>"
+        } else {
+            rows += '<tr>';
+        }
 
-            rows += '</tr>';
+        if (i === NEW_COL_SUNRISE) {
+            rows += "<th>" + prayerName +  "</th>";
+            rows += "<th>" + row[i].format('LT') + "</th>";
+            i = i + 1;
+            continue;
+        } else 
+        {
+            rows += "<th>" + prayerName +  "</th>";
+            rows += "<th>" + row[i].format('LT') + "</th>";
+            rows += "<th>" + row[i+1].format('LT') + "</th>";
+        }
 
-            i = i + 2;
+        rows += '</tr>';
+
+        i = i + 2;
     }
 
     $('#prayertimes tr').remove();
@@ -155,6 +156,25 @@ function updateTable(prayerTimes) {
     $('#prayertimes tr:last').after(rows);
 
     // $('#prayertimes tr').after(rows);
+}
+
+function getPrayerFromString(obj = "") {
+    var elements = obj.split(" ");
+    
+    var prayer = {
+        name: "",
+        type: ""
+    };
+
+    if (elements.length > 0) {
+        prayer.name = elements[0];
+    }
+
+    if(elements.length > 1) {
+        prayer.type = elements[1];
+    }
+
+    return prayer;
 }
 
 function main() {
@@ -165,15 +185,16 @@ function main() {
 }
 
 $(function() {
-    
+    var refreshInterval = 1000;
     main();
     setInterval(function(){
-        $('#now').html(moment().format('LT') + " (" + current[0] + " )");
-    }, 1000); 
+        var c = getPrayerFromString(current[0]);
+        $('#now').html(moment().format('LT') + " (" + c.name + " )");
+        $('#nextPrayer').html(next[0] + " @ " + next[1].format('LT'));
+    }, refreshInterval); 
 
     setInterval(function(){
-        main()
-        $('#nextPrayer').html(next[0] + " @ " + next[1].format('LT'));
-    }, 10000); 
+        main();
+    }, refreshInterval * 10); 
 
 })
