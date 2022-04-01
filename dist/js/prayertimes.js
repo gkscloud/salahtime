@@ -166,6 +166,7 @@ function main() {
 
 $(function() {
     
+    main();
     setInterval(function(){
         $('#now').html(moment().format('LT') + " (" + current[0] + " )");
     }, 1000); 
@@ -173,6 +174,6 @@ $(function() {
     setInterval(function(){
         main()
         $('#nextPrayer').html(next[0] + " @ " + next[1].format('LT'));
-    }, 1000); 
+    }, 10000); 
 
 })
